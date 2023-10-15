@@ -1,7 +1,6 @@
 """
-6.1010 Spring '23 Lab 3: Bacon Number
+Fall '22: Bacon Number
 """
-#!/usr/bin/env python3
 
 import pickle
 
