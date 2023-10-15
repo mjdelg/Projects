@@ -7,8 +7,6 @@
 import typing
 import doctest
 
-# NO ADDITIONAL IMPORTS ALLOWED!
-
 
 def dump(game):
     """
@@ -287,7 +285,7 @@ def get_neighbors(coord, dimension):
         return neighbors
 
 
-def get_all_coord(dim):  # is this function for get neighbors?
+def get_all_coord(dim): 
     """
     Returns all possible coordinates in a given board
     """
