@@ -1,1 +1,1 @@
-
+This project is an exciting coding endeavor that combines data analysis and graph traversal to determine the Bacon number of actors and illustrate the connections between them. The Bacon number represents the degrees of separation between an actor and the actor Kevin Bacon within the film industry. Also can calculate the degrees of seperation between any two actors. 
