@@ -1,15 +1,10 @@
-"""
-6.1010 Spring '23 Lab 2: Image Processing 2
-"""
 
 #!/usr/bin/env python3
 
-# NO ADDITIONAL IMPORTS!
-# (except in the last part of the lab; see the lab writeup for details)
 import math
 from PIL import Image
 
-# --------Lab 1 Functions---------#
+# --------Functions---------#
 def get_pixel(image, row, col):
     """
     Given a row and column returns value at index
@@ -19,13 +14,11 @@ def get_pixel(image, row, col):
     # print(image["pixels"][col + offset])
     return image["pixels"][col + offset]
 
-
 def set_pixel(image, color):
     """
     Sets pixel to a new color
     """
     image["pixels"] += [color]
-
 
 def apply_per_pixel(image, func):
     """
@@ -42,7 +35,6 @@ def apply_per_pixel(image, func):
             new_color = func(color)
             set_pixel(result, new_color)
     return result
-
 
 def inverted(image):
     """
@@ -78,7 +70,6 @@ def get_corr(image, row, col, boundary_behavior):
             n_col = image["width"] - 1
         return get_pixel(image, n_row, n_col)
 
-
 def round_and_clip_image(image):
     """
     Given a dictionary, ensure that the values in the "pixels" list are all
@@ -99,7 +90,6 @@ def round_and_clip_image(image):
         elif type(round_dict["pixels"][i]) == float:
             round_dict["pixels"][i] = round(round_dict["pixels"][i])
     return round_dict
-
 
 def correlate(image, kernel, boundary_behavior):
     """
@@ -196,9 +186,6 @@ def edges(image):
     new_image["pixels"] = new_pixels
     return round_and_clip_image(new_image)
 
-
-# --------Lab 1 Functions End-----#
-
 # VARIOUS FILTERS
 
 # ----Helper Functions for color_filter_from_greyscale----#
@@ -228,9 +215,7 @@ def combine_split_image(red, green, blue):
     combined_image["pixels"] = combined_pixels
     return combined_image
 
-
 # -----------------------------------------------------#
-
 
 def color_filter_from_greyscale_filter(filt):
     """
@@ -253,16 +238,13 @@ def color_filter_from_greyscale_filter(filt):
 
 # ----------------Blur---------------#
 
-
 def make_blur_filter(kernel_size):
     def blur_image(image):
         return blurred(image, kernel_size)
 
     return blur_image
 
-
 # ----------------Sharpen---------------#
-
 
 def make_sharpen_filter(kernel_size):
     def sharpen_image(image):
@@ -270,9 +252,7 @@ def make_sharpen_filter(kernel_size):
 
     return sharpen_image
 
-
 # ----------------Cascade of Filters---------------#
-
 
 def filter_cascade(filters):
     """
@@ -288,11 +268,9 @@ def filter_cascade(filters):
 
     return apply_filter
 
-
 # ––––––––––––SEAM CARVING–––––––––––––#
 
 # Main Seam Carving Implementation
-
 
 def seam_carving(image, ncols):
     """
@@ -308,7 +286,6 @@ def seam_carving(image, ncols):
         seam = minimum_energy_seam(c_energy)
         seamless = image_without_seam(seamless, seam)
     return seamless
-
 
 # –––––––––––––––HELPER FUNCTIONS FOR SEAM CARVING–––––––––––#
 
@@ -326,7 +303,6 @@ def greyscale_image_from_color_image(image):
     grey_image["pixels"] = grey_pixels
     return grey_image
 
-
 def compute_energy(grey):
     """
     Given a greyscale image, computes a measure of "energy", in our case using
@@ -335,7 +311,6 @@ def compute_energy(grey):
     Returns a greyscale image (represented as a dictionary).
     """
     return edges(grey)
-
 
 def find_min_adjacent(energy, row, col):
     """
@@ -351,7 +326,6 @@ def find_min_adjacent(energy, row, col):
             get_pixel(energy, row - 1, col),
             get_pixel(energy, row - 1, col + 1),
         )
-
 
 def cumulative_energy_map(energy):
     """
@@ -375,7 +349,6 @@ def cumulative_energy_map(energy):
                     + get_pixel(energy, row, col)
                 )
     return energy_map
-
 
 def find_flatlist_min_adj(image, index):
     """
@@ -409,7 +382,6 @@ def find_flatlist_min_adj(image, index):
         return above_index
     return right_index
 
-
 def minimum_energy_seam(cem):
     """
     Given a cumulative energy map, returns a list of the indices into the
@@ -430,7 +402,6 @@ def minimum_energy_seam(cem):
     # first find min value in last row
     return indices
 
-
 def image_without_seam(image, seam):
     """
     Given a (color) image and a list of indices to be removed from the image,
@@ -448,7 +419,6 @@ def image_without_seam(image, seam):
     for index in seam:
         seamless_dict["pixels"].pop(index)
     return seamless_dict
-
 
 # -----------CUSTOM FUNCTION------------#
 
@@ -533,9 +503,7 @@ def custom_feature(image, shift_horiz, shift_vert):
             two_dim_shifted["pixels"][row] = new_row
     return transpose(image_from_2d_array(two_dim_shifted))
 
-
 # ------------HELPER FUNCTIONS FOR LOADING AND SAVING COLOR IMAGES----------#
-
 
 def load_color_image(filename):
     """
@@ -553,7 +521,6 @@ def load_color_image(filename):
         width, height = img.size
         return {"height": height, "width": width, "pixels": pixels}
 
-
 def save_color_image(image, filename, mode="PNG"):
     """
     Saves the given color image to disk or to a file-like object.  If filename
@@ -568,7 +535,6 @@ def save_color_image(image, filename, mode="PNG"):
     else:
         out.save(filename, mode)
     out.close()
-
 
 def load_greyscale_image(filename):
     """
@@ -594,7 +560,6 @@ def load_greyscale_image(filename):
         width, height = img.size
         return {"height": height, "width": width, "pixels": pixels}
 
-
 def save_greyscale_image(image, filename, mode="PNG"):
     """
     Saves the given image to disk or to a file-like object.  If filename is
@@ -610,42 +575,36 @@ def save_greyscale_image(image, filename, mode="PNG"):
         out.save(filename, mode)
     out.close()
 
-
 if __name__ == "__main__":
-    # code in this block will only be run when you explicitly run your script,
-    # and not when the tests are being run.  this is a good place for
-    # generating images, etc.
 
     # ------INVERTED-----#
-    # cat_color = load_color_image("/Users/mjdelg/Desktop/6.101/lab2/image_processing_2/test_images/cat.png")
+    # cat_color = load_color_image("/image_processing_2/test_images/cat.png")
     # color_inverted = color_filter_from_greyscale_filter(inverted)
     # save_color_image(color_inverted(cat_color), "cat_color_inverted.png", mode="PNG")
 
     # ------BLUR-----#
-    python = load_color_image("/Users/mjdelg/Desktop/6.101/lab2/image_processing_2/test_images/python.png")
+    python = load_color_image("/image_processing_2/test_images/python.png")
     # python = color_filter_from_greyscale_filter(make_blur_filter(9))(python)
     # save_color_image(python, "python_f.png", mode="PNG")
 
     # ------SHARPEN-----#
-    # sc = load_color_image("/Users/mjdelg/Desktop/6.101/lab2/image_processing_2/test_images/sparrowchick.png")
+    # sc = load_color_image("/image_processing_2/test_images/sparrowchick.png")
     # sc = color_filter_from_greyscale_filter(make_sharpen_filter(7))(sc)
     # save_color_image(sc, "sc_sharp.png", mode="PNG")
 
     # ------CASCADE------#
-    frog = load_color_image("/Users/mjdelg/Desktop/6.101/lab2/image_processing_2/test_images/frog.png")
+    frog = load_color_image("/image_processing_2/test_images/frog.png")
     # filter1 = color_filter_from_greyscale_filter(edges)
     # filter2 = color_filter_from_greyscale_filter(make_blur_filter(5))
     # filt = filter_cascade([filter1, filter1, filter2, filter1])
     # save_color_image(filt(frog), "frog_cascade.png", mode="PNG")
 
     #–––––––––––––––SEAM––––––––––––––––#
-    # twoc = load_color_image("/Users/mjdelg/Desktop/6.101/lab2/image_processing_2/test_images/twocats.png")
+    # twoc = load_color_image("/image_processing_2/test_images/twocats.png")
     # save_color_image(seam_carving(twoc, 100), "twocat_seam.png", mode="PNG")
 
     # ––––––––––––––CUSTOM–––––––––––––#
     # print(python["width"])
     # square = custom_feature(python, 10, 20)
     # save_color_image(square, "python_custom2.png", mode="PNG")
-    flood = load_color_image("/Users/mjdelg/Downloads/flood_fill/flood_input.png")
-    print(flood["height"], flood["width"])
     pass
