@@ -1,1 +1,1 @@
-
+This project allows users to transform and manipulate images by applying a wide range of filters, from basic enhancements like color manipulation to more advanced features like blurring, sharpening, and seam carving.
