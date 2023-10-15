@@ -1,8 +1,7 @@
 """
-6.1010 Spring '23 Lab 9: Autocomplete
+6.1010 Spring '23
 """
 
-# NO ADDITIONAL IMPORTS!
 import doctest
 from text_tokenize import tokenize_sentences
 
@@ -176,9 +175,9 @@ def autocorrect(tree, prefix, max_count=None):
     edits of the given word as well, up to max_count total elements.
     """
     auto_res = autocomplete(tree, prefix, max_count)
-    print(auto_res)
-    print(max_count, "max")
-    print(len(auto_res), "auto")
+    #print(auto_res)
+    #print(max_count, "max")
+    #print(len(auto_res), "auto")
     edits = gets_edits(prefix)
     valid_edits = [
         (edit, tree[edit]) for edit in edits if edit in tree and edit not in auto_res
@@ -195,7 +194,8 @@ def autocorrect(tree, prefix, max_count=None):
 
 def recursive_build(tree, pattern, list_vals):
     """
-    Recusive helper for word_filter
+    Recusive helper for word_filter. Adds support for
+    some frequently used regex characters.
     """
     if len(pattern) == 0:
         if tree.value != None:
@@ -224,7 +224,6 @@ def recursive_build(tree, pattern, list_vals):
     else:
         if pattern[0] not in tree.children:
             return []
-        # how do i build up the list??
         next = tree.children[pattern[0]]
         curr_list = recursive_build(next, pattern[1:], list_vals)
         return [(pattern[0] + first, val) for first, val in curr_list]
