@@ -6,3 +6,5 @@ the system identifies and rectifies typographical errors, spelling mistakes, and
 grammatical inaccuracies in user-input text. It offers suggested corrections based on language patterns.
 Auto-completion functionality assists users by suggesting word completions. These suggestions are 
 generated based on the input text and the context provided by N-grams, reducing user errors.
+
+TESTING CODE WAS NOT WRITTEN BY ME.
